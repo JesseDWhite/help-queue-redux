@@ -5,7 +5,18 @@ import TicketList from "./TicketList";
 class TicketControl extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { formVisibleOnPage: false };
+    this.state = {
+      formVisibleOnPage: false,
+      masterTicketList: []
+    };
+  }
+
+  handleAddingNewTicketToList = (newTicket) => {
+    const newMasterTicketList = this.state.masterTicketList.concat(newTicket);
+    this.setState({
+      masterTicketList: newMasterTicketList,
+      formVisibleOnPage: false
+    });
   }
 
   handleClick = () => {
@@ -16,10 +27,10 @@ class TicketControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
     if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewTicketForm />
+      currentlyVisibleState = <NewTicketForm onNewTicketCreation={this.handleAddingNewTicketToList} />;
       buttonText = "Return to Ticket List"
     } else {
-      currentlyVisibleState = <TicketList />
+      currentlyVisibleState = <TicketList ticketList={this.state.masterTicketList} />;
       buttonText = "Add Ticket"
     }
     return (

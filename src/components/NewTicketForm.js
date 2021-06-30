@@ -1,9 +1,39 @@
 import React from "react";
+import { v4 } from "uuid";
+import PropTypes from "prop-types";
 
-function NewTicketForm(prop) {
+function NewTicketForm(props) {
+  function handleNewTicketFormSubmission(event) {
+    event.preventDefault();
+    props.onNewTicketCreation({ names: event.target.names.value, location: event.target.location.value, issue: event.target.issue.value, id: v4() });
+    console.log();
+    console.log();
+    console.log();
+  }
+
+  NewTicketForm.propTypes = {
+    onNewTicketCreation: PropTypes.func
+  }
+
   return (
     <React.Fragment>
-      <h3>This is a form boi.</h3>
+      <form onSubmit={handleNewTicketFormSubmission}>
+        <input
+          type="text"
+          name="names"
+          placeholder="Pair Names"
+        />
+        <input
+          type="text"
+          name="location"
+          placeholder="Location"
+        />
+        <textarea
+          name="issue"
+          placeholder="Please describe the issue you are having."
+        />
+        <button type="submit">Submit</button>
+      </form>
     </React.Fragment>
   )
 }

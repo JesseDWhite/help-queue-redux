@@ -1,28 +1,12 @@
 import React from "react";
 import Ticket from "./Ticket";
+import PropTypes from "prop-types";
 
-const masterTicketList = [
-  {
-    location: "3A",
-    names: "Thato and Haley",
-    issue: "Firebase entries are not saving! Fix it yah dingus!"
-  },
-  {
-    location: "4B",
-    names: "Sleater and Kinney",
-    issue: "Prop types are throwing an error."
-  },
-  {
-    names: 'Imani & Jacob',
-    location: '9F',
-    issue: 'Child component isn\'t rendering.'
-  }
-]
-function TicketList() {
+function TicketList(props) {
   return (
     <React.Fragment>
       <hr />
-      {masterTicketList.map((ticket, index) =>
+      {props.ticketList.map((ticket, index) =>
         <Ticket names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
@@ -30,6 +14,10 @@ function TicketList() {
       )}
     </React.Fragment>
   )
+}
+
+TicketList.propTypes = {
+  ticketList: PropTypes.array
 }
 
 export default TicketList;
