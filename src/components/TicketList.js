@@ -1,25 +1,35 @@
 import React from "react";
+import { shape, func, objectOf } from 'prop-types';
+import { ITicket } from "../propTypes";
 import Ticket from "./Ticket";
-import PropTypes from "prop-types";
 
-function TicketList(props) {
+function TicketList({ ticketList, viewTicket, viewNewTicketForm }) {
+  console.log(`viewTicket`, viewTicket);
   return (
-    <React.Fragment>
+    <>
       <hr />
-      {props.ticketList.map((ticket) =>
-        <Ticket names={ticket.names}
+      {Object.values(ticketList).map(ticket =>
+        <Ticket
+          viewTicket={viewTicket}
+          names={ticket.names}
           location={ticket.location}
           issue={ticket.issue}
+          formattedWaitTime={ticket.formattedWaitTime}
           id={ticket.id}
-          key={ticket.id} />
+          key={ticket.id}
+        />
       )}
-    </React.Fragment>
-  )
+      <button type='button' onClick={viewNewTicketForm}>
+        Create New Ticket
+      </button>
+    </>
+  );
 }
 
 TicketList.propTypes = {
-  ticketList: PropTypes.array,
-  onTicketSelection: PropTypes.func
-}
+  ticketList: objectOf(shape(ITicket)).isRequired,
+  viewTicket: func.isRequired,
+  viewNewTicketForm: func.isRequired,
+};
 
 export default TicketList;

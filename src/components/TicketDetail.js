@@ -1,25 +1,39 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { shape, func } from 'prop-types';
+import { ITicket } from "../propTypes";
 
-function TicketDetail(props) {
-  const { ticket, onClickingDelete } = props;
-
+function TicketDetail({
+  ticket,
+  onClickingDelete,
+  viewEditTicketForm,
+  viewTicketList,
+}) {
+  console.log(viewEditTicketForm);
   return (
-    <React.Fragment>
+    <>
       <h1>Ticket Detail</h1>
       <h3>{ticket.locations} = {ticket.name}</h3>
       <p><em>{ticket.issue}</em></p>
-      <button onClick={() => onClickingEdit(ticket.id)}>Edit Ticket</button>
-      <button onClick={() => onClickingDelete(ticket.id)}>Close Ticket</button>
+      <button type='button' onClick={() => viewEditTicketForm(ticket.id)}>
+        Edit Ticket
+      </button>
+      <button type='button' onClick={() => onClickingDelete(ticket.id)}>
+        Close Ticket
+      </button>
       <hr />
-    </React.Fragment>
+      <button type='button' onClick={viewTicketList}>
+        Return to Ticket List
+      </button>
+    </>
   );
 }
 
 TicketDetail.propTypes = {
-  ticket: PropTypes.object,
-  onClickingDelete: PropTypes.func,
-  onClickingEdit: PropTypes.func
-}
+
+  ticket: shape(ITicket).isRequired,
+  onClickingDelete: func.isRequired,
+  viewEditTicketForm: func.isRequired,
+  viewTicketList: func.isRequired,
+};
 
 export default TicketDetail;

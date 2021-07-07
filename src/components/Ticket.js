@@ -1,24 +1,21 @@
-import React from "react"
-import PropTypes from "prop-types";
+import React from "react";
+import { ITicket } from "../propTypes";
 
-function Ticket(props) {
+function Ticket({ viewTicket, location, names, issue, id }) {
   return (
-    <React.Fragment>
-      <div onClick={() => props.whenTicketClicked(props.id)}>
-        <h3>{props.location} - {props.names}</h3>
-        <p><em>{props.issue}</em></p>
-        <hr />
-      </div>
-    </React.Fragment>
-  )
+
+    <div>
+      <h3>{location} - {names}</h3>
+      <p><em>{issue}</em></p>
+      <button type='button' onClick={() => viewTicket(id)}>
+        View Ticket
+      </button>
+      <hr />
+    </div>
+
+  );
 }
 
-Ticket.propTypes = {
-  names: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
-  issue: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  whenTicketClicked: PropTypes.func
-};
+Ticket.propTypes = ITicket;
 
 export default Ticket;
